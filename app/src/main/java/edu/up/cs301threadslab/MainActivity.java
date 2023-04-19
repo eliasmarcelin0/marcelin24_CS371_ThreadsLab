@@ -38,6 +38,7 @@ public class MainActivity extends Activity
         theSeekBar = (SeekBar)findViewById(R.id.seekBar);
         theSeekBar.setOnSeekBarChangeListener(this);
 
+        //CHP 1:
         handler.post(runnable);
 
     }//onClick
@@ -60,7 +61,7 @@ public class MainActivity extends Activity
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
 
-
+//CheckPoint 1:
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
