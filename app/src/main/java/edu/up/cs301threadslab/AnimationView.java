@@ -94,13 +94,6 @@ public class AnimationView extends SurfaceView{
         }
     }
 
-    /** Start Animation */
-   public void startAnimation() {
-
-   }
-
-    public void updateAnimation() {
-
-    }
+    /** My stuff */
 
 }//class AnimationView

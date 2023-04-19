@@ -1,5 +1,6 @@
 package edu.up.cs301threadslab;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ public class MainActivity extends Activity
     private AnimationView myAV;
     private Button theButton;
     private SeekBar theSeekBar;
+    private boolean animationRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +40,14 @@ public class MainActivity extends Activity
         theSeekBar = (SeekBar)findViewById(R.id.seekBar);
         theSeekBar.setOnSeekBarChangeListener(this);
 
-        //CHP 1:
-        handler.post(runnable);
+looper();
+
 
     }//onClick
 
     @Override
     public void onClick(View v) {
-        myAV.postInvalidate();
+            myAV.postInvalidate();
     }
 
     @Override
@@ -61,17 +63,39 @@ public class MainActivity extends Activity
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
 
-//CheckPoint 1:
-    private Handler handler = new Handler();
-    private Runnable runnable = new Runnable() {
+/** My stuff */
+
+
+
+/**CheckPoint 1: */
+private Handler mHandler = new Handler();
+
+/** runnable */
+public Runnable mAnimationRunnable = new Runnable() {
         @Override
         public void run() {
-            myAV.postInvalidate();
-            handler.postDelayed(this, 1000); // Repeat every 16ms for ~60fps
-        }
+            if (animationRunning) {
+                mHandler.postDelayed(mAnimationRunnable, 30); // Start animation loop
+                animationRunning = false;
 
+                myAV.postInvalidate();
+
+            }
+            else {
+                looper();
+                return;
+            }
+        }
     };
 
+    public void looper(){
+        animationRunning = true;
+
+        mHandler.post(mAnimationRunnable);
+    }
+
+
+    /** CheckPoint 2: */
 
 
 
